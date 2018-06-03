@@ -1,3 +1,40 @@
+class Dessert
+
+  attr_accessor :name, :calories
+
+  def initialize(name, calories)
+    @name = name
+    @calories = calories
+  end
+
+  def name=(name)
+    @name = name
+  end
+
+  def name
+    @name
+  end
+
+  def calories=(calories)
+    @calories = calories
+  end
+
+  def calories
+    @calories
+  end
+
+  def healthy?()
+    if @calories > 200
+      false
+    end
+    true
+  end
+
+  def delicious?()
+    true
+  end
+
+end
 
 def palindrome?(string)
   return string == string.reverse if string.class == String
@@ -48,7 +85,5 @@ def rock_scissors_paper(array)
   end
 end
 
-
-
-puts count_words('string in a perfect view of a word, but a same string is better view')
-puts rock_scissors_paper([%w[Adriano r], %w[Chilintano s]])
+def combine_anagrams(words)
+end
