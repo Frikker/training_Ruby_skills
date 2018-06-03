@@ -36,6 +36,22 @@ class Dessert
 
 end
 
+class JellyBean < Dessert
+  attr_accessor :flavor
+
+  def flavor=(flavor)
+    @flavor = flavor
+  end
+
+  def flavor()
+    @flavor
+  end
+  
+  def delicious?()
+    !@flavor.casecmp?("black lacorice")
+  end
+end
+
 def palindrome?(string)
   return string == string.reverse if string.class == String
   false
