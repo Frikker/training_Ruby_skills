@@ -1,5 +1,27 @@
-class Dessert
+class Class
+  def attr_accessor_with_history(attr_name)
+    attr_name = attr_name.to_s # make sure it's a string
+    attr_reader attr_name
+    class_eval %Q{
+      def #{attr_name}_history
+        @#{attr_name}_history ||= [nil]
+      end
 
+      def #{attr_name}=(value)
+        #{attr_name}_history << value
+        @#{attr_name} = value
+      end
+    }
+  end
+end
+
+class String
+  def palindrome?
+    self == reverse
+  end
+end
+
+class Dessert
   attr_accessor :name, :calories
 
   def initialize(name, calories)
@@ -7,60 +29,46 @@ class Dessert
     @calories = calories
   end
 
-  def name=(name)
-    @name = name
-  end
-
-  def name
-    @name
-  end
-
-  def calories=(calories)
-    @calories = calories
-  end
-
-  def calories
-    @calories
-  end
-
-  def healthy?()
-    if @calories > 200
-      false
-    end
+  def healthy?
+    false if @calories > 200
     true
   end
 
-  def delicious?()
+  def delicious?
     true
   end
-
 end
 
 class JellyBean < Dessert
   attr_accessor :flavor
 
-  def flavor=(flavor)
-    @flavor = flavor
-  end
-
-  def flavor()
-    @flavor
-  end
-  
-  def delicious?()
-    !@flavor.casecmp?("black lacorice")
+  def delicious?
+    !@flavor.casecmp?('black lacorice')
   end
 end
 
-def palindrome?(string)
-  return string == string.reverse if string.class == String
-  false
+class WrongNumberOfPlayersError < StandardError
+  def message
+    puts 'The number of players is not count 2'
+  end
+end
+
+class WrongNumberOfArguments < StandardError
+  def message
+    puts 'The number of player\'s arguments is not count 2'
+  end
+end
+
+class NoSuchStrategyError < StandardError
+  def message
+    puts 'You have chosen the wrong position'
+  end
 end
 
 def count_words(string)
-  strarray = string.split
+  string_array = string.split
   hash = {}
-  strarray.each do |word|
+  string_array.each do |word|
     if hash.key?(word)
       hash[word] += 1
     else
@@ -68,21 +76,6 @@ def count_words(string)
     end
   end
   hash
-end
-class WrongNumberOfPlayersError < StandardError
-  def message
-    puts 'The number of players is not count 2'
-  end
-end
-class WrongNumberOfArguments < StandardError
-  def message
-    puts "The number of player's arguments is not count 2"
-  end
-end
-class NoSuchStrategyError < StandardError
-  def message
-    puts ''
-  end
 end
 
 def rock_scissors_paper(array)
@@ -101,5 +94,3 @@ def rock_scissors_paper(array)
   end
 end
 
-def combine_anagrams(words)
-end
