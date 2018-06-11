@@ -1,8 +1,8 @@
 class Class
   def attr_accessor_with_history(attr_name)
-    attr_name = attr_name.to_s # make sure it's a string
+    attr_name = attr_name.to_s
     attr_reader attr_name
-    class_eval %Q{
+    class_eval %{
       def #{attr_name}_history
         @#{attr_name}_history ||= [nil]
       end
@@ -15,10 +15,25 @@ class Class
   end
 end
 
-class String
+module CheckPalindrome
   def palindrome?
     self == reverse
   end
+
+  def check_class
+    if self.class == Array
+      join.palindrome?
+    elsif self.class == String
+      palidrome?
+    end
+  end
+end
+
+class String
+  include CheckPalindrome
+end
+class Array
+  include CheckPalindrome
 end
 
 class Dessert
@@ -66,7 +81,7 @@ class NoSuchStrategyError < StandardError
 end
 
 def count_words(string)
-  string_array = string.split
+  string_array = string.gsub(/[^\p{L}\s\d]/,'').downcase.split
   hash = {}
   string_array.each do |word|
     if hash.key?(word)
@@ -80,11 +95,11 @@ end
 
 def rock_scissors_paper(array)
   args_hash = { 'R' => 'S', 'S' => 'P', 'P' => 'R' }
-  raise WrongNumberOfPlayersError if array.count != 2
+  raise WrongNumberOfPlayersError if array.size != 2
   player1 = array[0]
   player2 = array[1]
   array.each do |elem|
-    raise WrongNumberOfArguments if elem.count != 2
+    raise WrongNumberOfArguments if elem.size != 2
     raise NoSuchStrategyError unless args_hash.include?(elem[1].upcase)
   end
   if args_hash[player1[1].upcase] == player2[1].upcase || player1[1] == player2[1]
@@ -94,3 +109,8 @@ def rock_scissors_paper(array)
   end
 end
 
+def combine_anagrams(words)
+  words.group_by{ |word| word.chars.sort.to_a }.values
+end
+
+puts count_words("A man, a plan, a canal -- Panama")
