@@ -1,21 +1,17 @@
 module CheckPalindrome
-  def palindrome?
-    self == reverse
+  def palindrome?(arg='')
+    check_class(arg)
   end
 
-  def check_class
-    if self.class == Array
-      join.palindrome?
-    elsif self.class == String
-      palidrome?
+  def check_class(arg)
+    arg.join if arg.class == Array
+    if arg.class == String
+      arg = arg.downcase.delete('^a-zA-Z0-9')
+      arg.eql?(arg.reverse)
     end
   end
 end
 
-class String
-  include CheckPalindrome
-end
-
-class Array
+class Object
   include CheckPalindrome
 end
