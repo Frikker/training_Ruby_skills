@@ -4,7 +4,7 @@ module CheckPalindrome
   end
 
   def check_class(arg)
-    arg.join if arg.class == Array
+    arg = arg.join if arg.class == Array
     if arg.class == String
       arg = arg.downcase.delete('^a-zA-Z0-9')
       arg.eql?(arg.reverse)
