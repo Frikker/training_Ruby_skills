@@ -1,5 +1,5 @@
 module CheckPalindrome
-  def palindrome?(arg='')
+  def palindrome?(arg = self)
     check_class(arg)
   end
 
