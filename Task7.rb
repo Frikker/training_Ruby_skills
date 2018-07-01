@@ -42,6 +42,3 @@ end
 class Numeric
   include MoneyConversation
 end
-
-
-puts 10.dollars.in(:euro).in(:ruble)
