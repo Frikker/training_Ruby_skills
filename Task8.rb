@@ -2,15 +2,14 @@ module AttrAccessorWithHistory
   def attr_accessor_with_history(attr_name)
     attr_name = attr_name.to_s
     attr_reader attr_name
-    module_eval "
-    def @#{attr_name}_history
-      @#{attr_name}_history = []
-    end"
-    module_eval "
-      def @#{attr_name}=(value)
-        @#{attr_name}_history << value
-        @#{attr_name} = value
-      end"
+    define_module("#{attr_name}_history"){ instance_variable_get("#{attr_name}_history ")= []}
+    define_module("#{attr_name}"){|value|
+      var = instance_variable_get("#{attr_name}_history")
+      var << value
+      
+      instance_variable_set("@#{attr_name}_history", var)
+      instance_variable_set("@#{attr_name}", value)
+    }
   end
 end
 
