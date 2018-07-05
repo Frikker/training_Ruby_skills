@@ -5,6 +5,7 @@ module AttrAccessorWithHistory
     define_module("#{attr_name}_history"){ instance_variable_get("#{attr_name}_history ")= []}
     define_module("#{attr_name}"){|value|
       var = instance_variable_get("#{attr_name}_history")
+      var ||= []
       var << value
       
       instance_variable_set("@#{attr_name}_history", var)
