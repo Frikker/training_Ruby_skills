@@ -9,6 +9,6 @@ class JellyBean < Dessert
   end
 
   def delicious?
-    !@flavor.casecmp?('black lacorice')
+    !@flavor.casecmp('black lacorice')
   end
 end
