@@ -3,9 +3,8 @@ require './Task5.rb'
 class JellyBean < Dessert
   attr_accessor :flavor
 
-  def initialize(name = '', calories = 0, flavor = '')
-    @name = name
-    @calories = calories
+  def initialize(name, calories, flavor)
+    super
     @flavor = flavor
   end
 
